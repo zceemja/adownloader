@@ -6,12 +6,12 @@ and [rich](https://rich.readthedocs.io/en/stable/introduction.html) with resumin
 ## Usage
 Using [uv](https://docs.astral.sh/uv/) (recommended):
 ```shell
-uvx https://github.com/zceemja/adownloader-rich.git url1 url2 url3 ...
+uvx https://github.com/zceemja/adownloader.git url1 url2 url3 ...
 ```
 
 Building with `pip`
 ```shell
-pip install -U git+https://github.com/zceemja/adownloader-rich.git
+pip install -U git+https://github.com/zceemja/adownloader.git
 python -m adownloader url1 url2 url3 ...
 ```
 

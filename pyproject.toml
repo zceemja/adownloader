@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/zceemja/adownloader-rich.git"
+Repository = "https://github.com/zceemja/adownloader.git"
 
 [project.scripts]
 adownloader = "adownloader:main"
