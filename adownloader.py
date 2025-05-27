@@ -145,7 +145,8 @@ class AsyncDownloader:
                     else:
                         dl_tasks.append(asyncio.create_task(self._download_file(fileinfo, retry + 1)))
             except asyncio.exceptions.CancelledError:
-                pass  # on keyboard interrupt
+                self.progress.stop()
+                self.console.print("[red]Download cancelled")
 
     async def download(self, *urls:str|tuple[str, str]|tuple[str,Path]):
         return [file async for file in self.download_generator(*urls)]
