@@ -133,9 +133,10 @@ class AsyncDownloader:
             self._main_task = self.progress.add_task(f"Checking 0/{len(urls)}", total=None, files_checked=0, files_total=len(urls))
             check_tasks = [asyncio.create_task(self._check_file(url)) for url in urls]
             dl_tasks = []
-            for fileinfo in asyncio.as_completed(check_tasks):
-                dl_tasks.append(asyncio.create_task(self._download_file(await fileinfo)))
-            for dl_task in dl_tasks:
+            try:
+                for fileinfo in asyncio.as_completed(check_tasks):
+                    dl_tasks.append(asyncio.create_task(self._download_file(await fileinfo)))
+                for dl_task in dl_tasks:
                     fileinfo, retry, ok = await dl_task
                     if retry >= self.max_retires:
                         raise StopAsyncIteration
@@ -143,7 +144,8 @@ class AsyncDownloader:
                         yield fileinfo.path
                     else:
                         dl_tasks.append(asyncio.create_task(self._download_file(fileinfo, retry + 1)))
-
+            except asyncio.exceptions.CancelledError:
+                pass  # on keyboard interrupt
 
     async def download(self, *urls:str|tuple[str, str]|tuple[str,Path]):
         return [file async for file in self.download_generator(*urls)]
