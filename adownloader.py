@@ -151,8 +151,7 @@ class AsyncDownloader:
 def download_files(*urls:str|tuple[str, str]|tuple[str,Path], **kwargs):
     return asyncio.run(AsyncDownloader(**kwargs).download(*urls))
 
-
-if __name__ == "__main__":
+def main():
     import argparse
     from rich_argparse import RichHelpFormatter
 
@@ -170,3 +169,6 @@ if __name__ == "__main__":
         *args.urls, download_dir=args.download_dir, concurrent_downloads=args.concurrent_downloads,
         allow_override=not args.no_override, allow_partial=not args.no_partial, timeout=args.timeout
     )
+
+if __name__ == "__main__":
+    main()
