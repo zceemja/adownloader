@@ -3,6 +3,9 @@
 A tiny and fast python async parallel file downloader script using [aiohttp](https://docs.aiohttp.org/en/stable/index.html) 
 and [rich](https://rich.readthedocs.io/en/stable/introduction.html) with resuming support.
 
+Demo of resuming downloads from .m8u file:
+![demo gif](https://github.com/user-attachments/assets/f4e6960e-aa1b-449e-980c-507bd3a60b31)
+
 ## Usage
 Using [uv](https://docs.astral.sh/uv/) (recommended):
 ```shell
