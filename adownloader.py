@@ -123,7 +123,7 @@ class AsyncDownloader:
             filepath_part.rename(file.path)
             self.console.print(f'Downloaded [progress.description]{file.path.name}')
             self.progress.remove_task(task)
-            return file, retry, True
+        return file, retry, True
 
     async def download_generator(self, *urls:str|tuple[str, str]|tuple[str,Path]) -> AsyncIterator[Path|None]:
         self.console.print(f'Downloading {len(urls)} files to [yellow]{self.download_dir}')
@@ -147,6 +147,8 @@ class AsyncDownloader:
             except asyncio.exceptions.CancelledError:
                 self.progress.stop()
                 self.console.print("[red]Download cancelled")
+            finally:
+                await self.session.close()
 
     async def download(self, *urls:str|tuple[str, str]|tuple[str,Path]):
         return [file async for file in self.download_generator(*urls)]
